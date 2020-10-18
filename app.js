@@ -68,6 +68,12 @@ app.post(`/${cfg.shortBaseUrl}`, async (req, res) => {
       } else {
         const hash = curTail.generate();
         const curtail = cfg.shortBaseUrl + '/' + hash;
+        const orgURLLength = url.length;
+        const curtailURLLength = curtail.length;
+        if(orgURLLength >= curtailURLLength){
+          console.log(`error..original url is already sorted`);
+          return res.status(400).json('error..original url is already sorted');
+        }
         const save_to_db = { url, curtail, hash, u_date };
         const item = new curtailLinks(save_to_db);
         await item.save();
