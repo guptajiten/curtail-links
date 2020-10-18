@@ -69,8 +69,9 @@ app.post(`/${cfg.shortBaseUrl}`, async (req, res) => {
         const hash = curTail.generate();
         const curtail = cfg.shortBaseUrl + '/' + hash;
         const orgURLLength = url.length;
-        const curtailURLLength = curtail.length;
-        if(orgURLLength >= curtailURLLength){
+        var fullCurTailLink = cfg.apiHost + curtail;
+        const curtailURLLength = fullCurTailLink.length;
+        if(orgURLLength <= curtailURLLength){
           console.log(`error..original url is already sorted`);
           return res.status(400).json('error..original url is already sorted');
         }
